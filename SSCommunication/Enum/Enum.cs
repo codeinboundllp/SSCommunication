@@ -10,5 +10,13 @@
             Pending,
             Unknown
         }
+        public enum EmailTemplateTag
+        {
+            Anchor,
+            Div,
+            Table,
+            Span,
+            Img
+        }
     }
 }

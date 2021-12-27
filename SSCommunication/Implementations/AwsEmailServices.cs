@@ -23,20 +23,47 @@ namespace SSCommunication.Implementations
         }
         public void Configure()
         {
+
         }
-        public Task<EmailServiceResponse> SendEmailAsync<TData>(Uri templateUrl, TData? data) where TData : IEmailTemplate
+        public async Task<EmailServiceResponse<string>> SendEmailAsync<TDatas>(Uri templateUrl, TDatas? data) where TDatas : IEmailTemplate
         {
             try
             {
                 SendEmailRequest req = new SendEmailRequest();
+                var httpresponse = CommonStatic.GetHttpStringResponse(templateUrl.OriginalString);
+                if (httpresponse.statusCode == HttpStatusCode.OK)
+                {
+                    req.Destination = new Destination { ToAddresses = data.ToEmail };
+                    req.Source = data.FromEmail;
+
+                    if (data == null)
+                    {
+                        req.Message = new Message { Subject = new Content(data.Subject), Body = new Body { Html = new Content(httpresponse.Data) } };
+                        SendEmailResponse response = await client.SendEmailAsync(req);
+                        return new EmailServiceResponse<string> { Status = response.HttpStatusCode, Response = response.MessageId, Error = null };
+                    }
+                    else
+                    {
+                        //html templating
+                        string parsed_html = CommonStatic.HtmlTemplateParsing(httpresponse.Data, data);
+                        req.Message = new Message { Subject = new Content(data.Subject), Body = new Body { Html = new Content(parsed_html) } };
+                        SendEmailResponse response = await client.SendEmailAsync(req);
+                        return new EmailServiceResponse<string> { Status = response.HttpStatusCode, Response = response.MessageId, Error = null };
+                    }
+                }
+                else
+                {
+                    return new EmailServiceResponse<string> { Status = httpresponse.statusCode, Error = new ErrorResponse { ErrorMsg = "Template Not Found" } };
+                }
             }
             catch (Exception ex)
             {
                 //TODO : Add Logging
-                throw;
+                return new EmailServiceResponse<string> { Status = HttpStatusCode.InternalServerError, Error = new ErrorResponse { ErrorMsg = ex.Message } };
+
             }
         }
-        public Task<EmailServiceResponse> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate
+        public Task<EmailServiceResponse<string>> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate
         {
             throw new NotImplementedException();
         }

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using SSCommunication.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SSCommunication.Interfaces
 {
@@ -13,5 +11,6 @@ namespace SSCommunication.Interfaces
         public List<string> ToEmail { get; set; }
         public string FromName { get; set; }
         public DateTime? CustomDate { get; set; }
+        public List<CustomEmailTemplateFields> Fields { get; set; }
     }
 }
