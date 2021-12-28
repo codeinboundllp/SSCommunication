@@ -63,9 +63,23 @@ namespace SSCommunication.Implementations
 
             }
         }
-        public Task<EmailServiceResponse<string>> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate
+        public async Task<EmailServiceResponse<string>> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate
         {
-            throw new NotImplementedException();
+            try
+            {
+                SendEmailRequest req = new SendEmailRequest();
+                req.Destination = new Destination { ToAddresses = data.ToEmail };
+                req.Source = data.FromEmail;
+                string parsed_html = CommonStatic.HtmlTemplateParsing(htmlTemplate, data);
+                req.Message = new Message { Subject = new Content(data.Subject), Body = new Body { Html = new Content(parsed_html) } };
+                SendEmailResponse response = await client.SendEmailAsync(req);
+                return new EmailServiceResponse<string> { Status = response.HttpStatusCode, Response = response.MessageId, Error = null };
+            }
+            catch (Exception ex)
+            {
+                //TODO : Add Logging
+                return new EmailServiceResponse<string> { Status = HttpStatusCode.InternalServerError, Error = new ErrorResponse { ErrorMsg = ex.Message } };
+            }
         }
     }
 }

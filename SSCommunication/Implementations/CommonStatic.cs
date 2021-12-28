@@ -21,12 +21,12 @@ namespace SSCommunication.Implementations
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream str = response.GetResponseStream();
                 StreamReader rdr = new StreamReader(str);
-                return new GenericHttpResponse<string> { Data = rdr.ReadToEnd(), statusCode = 200 };
+                return new GenericHttpResponse<string> { Data = rdr.ReadToEnd(), statusCode = HttpStatusCode.OK };
             }
             catch (Exception ex)
             {
-
-                return new GenericHttpResponse<string> { statusCode = 400, Message = ex.Message };
+                //TODO : Add Logging
+                return new GenericHttpResponse<string> { statusCode = HttpStatusCode.InternalServerError, Message = ex.Message };
             }
         }
 
