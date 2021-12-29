@@ -1,7 +1,6 @@
 ﻿using Amazon;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
-using Microsoft.Extensions.Configuration;
 using SSCommunication.Interfaces;
 using SSCommunication.Models;
 using System;
@@ -17,15 +16,14 @@ namespace SSCommunication.Implementations
         private readonly AmazonSimpleEmailServiceClient client;
         public AwsEmailServices(IAwsConfiguration configuration)
         {
+
             _configuration = configuration;
             region = RegionEndpoint.GetBySystemName(configuration.Region);
             client = new AmazonSimpleEmailServiceClient(configuration.AccessKey, configuration.SecretKey, region);
-        }
-        public void Configure()
-        {
 
         }
-        public async Task<EmailServiceResponse<string>> SendEmailAsync<TDatas>(Uri templateUrl, TDatas? data) where TDatas : IEmailTemplate
+        
+        public async Task<EmailServiceResponse<string>> SendEmailAsync(Uri templateUrl, EmailTemplate? data) 
         {
             try
             {
@@ -63,7 +61,7 @@ namespace SSCommunication.Implementations
 
             }
         }
-        public async Task<EmailServiceResponse<string>> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate
+        public async Task<EmailServiceResponse<string>> SendEmailAsync(string htmlTemplate, EmailTemplate? data)
         {
             try
             {

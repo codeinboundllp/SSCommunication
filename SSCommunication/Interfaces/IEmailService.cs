@@ -6,8 +6,7 @@ namespace SSCommunication.Interfaces
 {
     public interface IEmailService
     {
-        void Configure();
-        Task<EmailServiceResponse<string>> SendEmailAsync<TData>(Uri templateUrl, TData? data) where TData : IEmailTemplate;
-        Task<EmailServiceResponse<string>> SendEmailAsync<TData>(string htmlTemplate, TData? data) where TData : IEmailTemplate;
+        Task<EmailServiceResponse<string>> SendEmailAsync(Uri templateUrl, EmailTemplate? data);
+        Task<EmailServiceResponse<string>> SendEmailAsync(string htmlTemplate, EmailTemplate? data);
     }
 }
