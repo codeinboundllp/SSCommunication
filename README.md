@@ -1,4 +1,4 @@
-# SSComminications Module
+# SSComminications Module 
 
 ## Installation
 
