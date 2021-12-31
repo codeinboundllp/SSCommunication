@@ -1,8 +1,4 @@
 # SSComminications Module
-## _The Last Markdown Editor, Ever_
-
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
 
 ## Installation
 
