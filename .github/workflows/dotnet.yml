@@ -24,7 +24,13 @@ jobs:
     - name: Publish SSCommunication
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
-          PROJECT_FILE_PATH: src/FluentEmail.Core/FluentEmail.Core.csproj
+          PROJECT_FILE_PATH: SSCommunication/SSCommunication.csproj
+          PACKAGE_NAME: SSCommunication
+          VERSION_FILE_PATH: Directory.Build.props
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          NUGET_SOURCE: https://api.nuget.org
+          TAG_COMMIT: true
+          TAG_FORMAT: v*
           NUGET_KEY: ${{secrets.nuget_api_key}}
 
  
