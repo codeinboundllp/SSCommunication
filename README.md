@@ -6,7 +6,7 @@ SSComminications requires [Nuget Package Manger]  to run.
 Run this command in the nuget package manager.
 
 ```sh
-Install-Package SSCommunication
+Install-Package SSCommunications
 ```
 ## Configuration
 Add the following in the AppSettings.json file.
