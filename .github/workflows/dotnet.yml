@@ -20,5 +20,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
+    - name: Publish FluentEmail.Core
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/FluentEmail.Core/FluentEmail.Core.csproj
+          NUGET_KEY: ${{secrets.nuget_api_key}}
+
  
