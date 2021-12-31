@@ -29,8 +29,6 @@ jobs:
           VERSION_FILE_PATH: SSCommunication/SSCommunication.csproj
           VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
           NUGET_SOURCE: https://api.nuget.org
-          TAG_COMMIT: true
-          TAG_FORMAT: v*
           NUGET_KEY: ${{secrets.nuget_api_key}}
 
  
