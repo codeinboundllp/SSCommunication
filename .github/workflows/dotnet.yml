@@ -27,7 +27,6 @@ jobs:
           PROJECT_FILE_PATH: SSCommunication/SSCommunication.csproj
           PACKAGE_NAME: SSCommunication
           VERSION_FILE_PATH: SSCommunication/SSCommunication.csproj
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
           NUGET_SOURCE: https://api.nuget.org
           NUGET_KEY: ${{secrets.nuget_api_key}}
 
