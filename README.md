@@ -23,7 +23,7 @@ Add the following in the AppSettings.json file.
 ## Usage
 
 Add the following code under in the Startup.cs file
-```sh
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
   services.AwsEmailConfigure(Configuration);
@@ -31,7 +31,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 Now you can inject `IEmailService` interface in the constructor of your class of implementation and call the following functions 
 
-```sh
+```csharp
 SendEmailAsync(Uri templateUrl, EmailTemplate? data);
 SendEmailAsync(string htmlTemplate, EmailTemplate? data);
 ```
