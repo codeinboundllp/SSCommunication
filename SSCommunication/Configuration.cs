@@ -25,7 +25,7 @@ namespace SSCommunication
             services.CommonConfig();
             return services;
         }
-        private static IServiceCollection CommonConfig(this IServiceCollection services)
+        public static IServiceCollection CommonConfig(this IServiceCollection services)
         {
             services.AddSingleton<IGenericHttpResponse, CommonGenericResponse>();
             return services;
