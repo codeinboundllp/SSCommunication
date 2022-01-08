@@ -22,6 +22,7 @@ Add the following in the AppSettings.json file.
 ```
 ## Usage
 
+### For Email Sending Service
 Add the following code under in the Startup.cs file
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -29,6 +30,14 @@ public void ConfigureServices(IServiceCollection services)
   services.AwsEmailConfigure(Configuration);
 }
 ```
+Now you can inject `IEmailService` interface in the constructor of your class of implementation and call the following functions 
+
+```csharp
+SendEmailAsync(Uri templateUrl, EmailTemplate? data);
+SendEmailAsync(string htmlTemplate, EmailTemplate? data);
+```
+### For Configuring and using Hosted Services
+
 For Hosted Services and executing a task in background under ConfigureServices in the Startup.cs file
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -49,10 +58,5 @@ Func<Task<T>> fn = ()=>{ //any task to be executed};
 taskqueue.QueueBackgroundWorkItem(fn);
 ```
 
-Now you can inject `IEmailService` interface in the constructor of your class of implementation and call the following functions 
 
-```csharp
-SendEmailAsync(Uri templateUrl, EmailTemplate? data);
-SendEmailAsync(string htmlTemplate, EmailTemplate? data);
-```
 
