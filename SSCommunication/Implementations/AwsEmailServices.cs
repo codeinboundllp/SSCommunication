@@ -11,22 +11,19 @@ namespace SSCommunication.Implementations
 {
     public class AwsEmailServices : IEmailService
     {
-        private readonly IAwsConfiguration _configuration;
         private readonly RegionEndpoint region;
         private readonly AmazonSimpleEmailServiceClient client;
         public AwsEmailServices(IAwsConfiguration configuration)
         {
-
-            _configuration = configuration;
             region = RegionEndpoint.GetBySystemName(configuration.Region);
             client = new AmazonSimpleEmailServiceClient(configuration.AccessKey, configuration.SecretKey, region);
-
         }
-        
-        public async Task<EmailServiceResponse<string>> SendEmailAsync(Uri templateUrl, EmailTemplate? data) 
+
+        public async Task<EmailServiceResponse<string>> SendEmailAsync(Uri templateUrl, EmailTemplate? data)
         {
             try
             {
+
                 SendEmailRequest req = new SendEmailRequest();
                 var httpresponse = CommonStatic.GetHttpStringResponse(templateUrl.OriginalString);
                 if (httpresponse.statusCode == HttpStatusCode.OK)

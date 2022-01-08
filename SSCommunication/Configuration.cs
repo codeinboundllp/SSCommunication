@@ -30,6 +30,12 @@ namespace SSCommunication
             services.AddSingleton<IGenericHttpResponse, CommonGenericResponse>();
             return services;
         }
+        public static IServiceCollection AddBackgroundTaskQueue(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+            services.AddHostedService<QueuedHostedService>();
+            return services;
+        }
 
     }
 }
