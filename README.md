@@ -29,6 +29,26 @@ public void ConfigureServices(IServiceCollection services)
   services.AwsEmailConfigure(Configuration);
 }
 ```
+For Hosted Services and executing a task in background under ConfigureServices in the Startup.cs file
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+  services.AddBackgroundTaskQueue(Configuration);
+}
+```
+then, inject the hosted services in the constructor of the class to be used in 
+
+```csharp
+public XYZ(IBackgroundTaskQueue taskqueue)
+{
+}
+```
+finally 
+```csharp
+Func<Task<T>> fn = ()=>{ //any task to be executed};
+taskqueue.QueueBackgroundWorkItem(fn);
+```
+
 Now you can inject `IEmailService` interface in the constructor of your class of implementation and call the following functions 
 
 ```csharp
