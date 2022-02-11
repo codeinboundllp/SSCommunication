@@ -13,11 +13,18 @@ Add the following in the AppSettings.json file.
 
 ```sh
 "SSCommunications":{
-    "AwsConfiguration":{
+    "AwsConfiguration":{ // For AWS SES
         "AccessKey":"Your Access Key",
         "SecretKey":"Your Secret Key",
         "Region":"Aws Region"
-    }
+    },
+    "SMTPConfiguration": { // For SMTP Email Sending
+      "Host": "Host Address",
+      "Port": 80,
+      "IsSSLEnabled": true | false,
+      "UserName": "Your Email Address or Username",
+      "Password": "Password"
+    },
 }
 ```
 ## Usage
@@ -27,7 +34,10 @@ Add the following code under in the Startup.cs file
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
+   //For AWS SES 
   services.AwsEmailConfigure(Configuration);
+  //For SMTP
+  services.SMTPEmailConfigure(Configuration);
 }
 ```
 Now you can inject `IEmailService` interface in the constructor of your class of implementation and call the following functions 
