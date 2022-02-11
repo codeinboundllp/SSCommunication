@@ -30,7 +30,7 @@ namespace SSCommunication.Implementations
                 {
                     req.Destination = new Destination { ToAddresses = data.ToEmail };
                     req.Source = data.FromEmail;
-
+                   
                     if (data == null)
                     {
                         req.Message = new Message { Subject = new Content(data.Subject), Body = new Body { Html = new Content(httpresponse.Data) } };
