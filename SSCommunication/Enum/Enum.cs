@@ -18,5 +18,18 @@
             Span,
             Img
         }
+        public enum SSLType
+        {
+            SSL,
+            TSL,
+            STARTTLS
+        }
+        public enum LogType
+        {
+            Success,
+            Exception,
+            Failed,
+            Others
+        }
     }
 }
